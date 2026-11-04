@@ -1,0 +1,5 @@
+yu_social.settings:
+  title: 'Social links'
+  description: 'Configure links shown in the Social links block.'
+  route_name: yu_social.settings
+  parent: system.admin_config_system

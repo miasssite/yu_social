@@ -1,0 +1,11 @@
+.social-links-row > summary {
+  cursor: grab;
+}
+
+.social-links-row.is-dragging {
+  opacity: 0.5;
+}
+
+.social-links-row.drag-over {
+  box-shadow: 0 -2px 0 0 #003cc5;
+}

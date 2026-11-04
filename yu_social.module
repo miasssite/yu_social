@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Social links module: block with links to phone, email, messengers, socials.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_theme().
+ */
+function yu_social_theme(array $existing, string $type, string $theme, string $path): array {
+  return [
+    'yu_social_links_block' => [
+      'variables' => [
+        'links' => [],
+        'orientation' => 'horizontal',
+      ],
+    ],
+  ];
+}

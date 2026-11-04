@@ -1,0 +1,16 @@
+yu_social:
+  version: 1.0.0
+  css:
+    theme:
+      css/yu-social.css: {}
+
+yu_social.admin:
+  version: 1.0.0
+  js:
+    js/yu-social-admin.js: {}
+  css:
+    theme:
+      css/yu-social-admin.css: {}
+  dependencies:
+    - core/drupal
+    - core/once

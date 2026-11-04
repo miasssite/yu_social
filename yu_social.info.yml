@@ -1,0 +1,9 @@
+name: Social links
+type: module
+description: 'Provides a block with links to phone, email, messengers and social networks with FontAwesome icons.'
+package: Custom
+core_version_requirement: ^11
+dependencies:
+  - fontawesome:fontawesome
+  - drupal:file
+configure: yu_social.settings

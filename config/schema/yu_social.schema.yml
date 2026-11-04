@@ -1,0 +1,84 @@
+yu_social.settings:
+  type: config_object
+  label: 'Social links settings'
+  mapping:
+    links:
+      type: sequence
+      label: 'Links'
+      sequence:
+        type: mapping
+        label: 'Link'
+        mapping:
+          enabled:
+            type: boolean
+            label: 'Enabled'
+          label:
+            type: label
+            label: 'Label'
+          url:
+            type: string
+            label: 'URL or value'
+          icon_type:
+            type: string
+            label: 'Icon type (fontawesome or svg)'
+          icon:
+            type: string
+            label: 'FontAwesome icon classes'
+          svg:
+            type: integer
+            label: 'SVG file ID'
+          nofollow:
+            type: boolean
+            label: 'Add rel="nofollow"'
+          weight:
+            type: integer
+            label: 'Weight'
+    default_classes:
+      type: mapping
+      label: 'Default CSS classes'
+      mapping:
+        wrapper_classes:
+          type: string
+          label: 'Wrapper classes'
+        link_classes:
+          type: string
+          label: 'Link classes'
+        icon_classes:
+          type: string
+          label: 'Icon classes'
+        label_classes:
+          type: string
+          label: 'Label classes'
+
+block.settings.yu_social_links_block:
+  type: block_settings
+  label: 'Social links block settings'
+  mapping:
+    orientation:
+      type: string
+      label: 'Orientation'
+    overrides:
+      type: sequence
+      label: 'Per-link overrides'
+      sequence:
+        type: mapping
+        label: 'Link override'
+        mapping:
+          enabled:
+            type: boolean
+            label: 'Enabled'
+          display:
+            type: string
+            label: 'Display mode'
+          wrapper_classes:
+            type: string
+            label: 'Wrapper classes'
+          link_classes:
+            type: string
+            label: 'Link classes'
+          icon_classes:
+            type: string
+            label: 'Icon classes'
+          label_classes:
+            type: string
+            label: 'Label classes'

@@ -1,0 +1,90 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall hooks for the yu_social module.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_install().
+ *
+ * Migrates data left over from the module's previous machine name "social":
+ * the social.settings config, block placements using the
+ * social_links_block plugin, file usage records and the role permission.
+ */
+function yu_social_install(bool $is_syncing = FALSE): void {
+  yu_social_migrate_from_social();
+}
+
+/**
+ * Migrates the legacy "social" module data to "yu_social".
+ *
+ * Safe to call multiple times: each step checks whether there is anything
+ * left to migrate.
+ */
+function yu_social_migrate_from_social(): void {
+  $config_factory = \Drupal::configFactory();
+
+  // 1. Rename the settings config social.settings -> yu_social.settings.
+  // The freshly imported default yu_social.settings is deleted first
+  // (storage rename would collide with it), so the user's existing links
+  // win over the module defaults.
+  if ($config_factory->listAll('social.settings') !== []) {
+    $config_factory->getEditable('yu_social.settings')->delete();
+    $config_factory->rename('social.settings', 'yu_social.settings');
+  }
+
+  // 2. Make sure the new default_classes keys exist in the settings.
+  $settings = $config_factory->getEditable('yu_social.settings');
+  $default_classes = $settings->get('default_classes');
+  if (!is_array($default_classes)) {
+    $default_classes = [];
+  }
+  $defaults = [
+    'wrapper_classes' => 'social-links__item--default',
+    'link_classes' => 'social-links__link--default',
+    'icon_classes' => 'social-links__icon--default',
+    'label_classes' => 'social-links__label--default',
+  ];
+  $changed = FALSE;
+  foreach ($defaults as $key => $value) {
+    if (!isset($default_classes[$key])) {
+      $default_classes[$key] = $value;
+      $changed = TRUE;
+    }
+  }
+  if ($changed) {
+    $settings->set('default_classes', $default_classes)->save();
+  }
+
+  // 3. Re-bind placed blocks using the old plugin id.
+  foreach ($config_factory->listAll('block.block.') as $block_config_name) {
+    $block = $config_factory->getEditable($block_config_name);
+    if ($block->get('plugin') === 'social_links_block') {
+      $block->set('plugin', 'yu_social_links_block')->save();
+    }
+  }
+
+  // 4. Re-assign the old permission to roles.
+  foreach ($config_factory->listAll('user.role.') as $role_config_name) {
+    $role = $config_factory->getEditable($role_config_name);
+    $permissions = $role->get('permissions');
+    if (is_array($permissions) && in_array('administer social settings', $permissions, TRUE)) {
+      $permissions = array_values(array_unique(array_map(
+        static fn(string $permission): string => $permission === 'administer social settings'
+          ? 'administer yu_social settings'
+          : $permission,
+        $permissions,
+      )));
+      $role->set('permissions', $permissions)->save();
+    }
+  }
+
+  // 5. Update file usage records created under the old module name.
+  \Drupal::database()->update('file_usage')
+    ->fields(['module' => 'yu_social'])
+    ->condition('module', 'social')
+    ->execute();
+}

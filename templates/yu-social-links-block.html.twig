@@ -1,0 +1,57 @@
+{#
+/**
+ * @file
+ * Template for the Social links block.
+ *
+ * Available variables:
+ * - orientation: Element layout, "horizontal" or "vertical".
+ * - links: List of prepared links. Each link has:
+ *   - label: The visible label.
+ *   - href: The final link href (tel:, mailto: or URL).
+ *   - icon: FontAwesome icon classes.
+ *   - icon_type: "fontawesome" or "svg".
+ *   - svg_url: URL of the uploaded SVG file (when icon_type is "svg").
+ *   - display: icon_label | icon_only | label_only.
+ *   - nofollow: Whether to add rel="nofollow".
+ *   - wrapper_classes: Classes for the <li> wrapper. Taken from the block
+ *     instance settings, or from the module settings defaults when the
+ *     instance field is empty.
+ *   - link_classes: Classes for the <a> element (same fallback logic).
+ *   - icon_classes: Classes for the <i> icon element (same fallback logic).
+ *   - label_classes: Classes for the <span> label element (same fallback
+ *     logic).
+ *   - external: Whether the link points to an external site.
+ *
+ * @ingroup themeable
+ */
+#}
+{% if links %}
+  <ul class="social-links social-links--{{ orientation }}">
+    {% for link in links %}
+      <li class="social-links__item{{ link.wrapper_classes ? ' ' ~ link.wrapper_classes }}">
+        <a href="{{ link.href }}"
+           class="social-links__link{{ link.link_classes ? ' ' ~ link.link_classes }}"
+           {% if link.external %}
+             target="_blank"
+             rel="noopener noreferrer{{ link.nofollow ? ' nofollow' }}"
+           {% elseif link.nofollow %}
+             rel="nofollow"
+           {% endif %}>
+          {% if link.display != 'label_only' %}
+            {% if link.icon_type == 'svg' and link.svg_url %}
+              <img src="{{ link.svg_url }}"
+                   alt="{{ link.label }}"
+                   class="social-links__icon social-links__icon--svg{{ link.icon_classes ? ' ' ~ link.icon_classes }}"
+                   aria-hidden="true" />
+            {% elseif link.icon %}
+              <i class="{{ link.icon }}{{ link.icon_classes ? ' ' ~ link.icon_classes }} social-links__icon" aria-hidden="true"></i>
+            {% endif %}
+          {% endif %}
+          {% if link.display != 'icon_only' %}
+            <span class="social-links__label{{ link.label_classes ? ' ' ~ link.label_classes }}">{{ link.label }}</span>
+          {% endif %}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

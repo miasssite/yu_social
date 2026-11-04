@@ -1,0 +1,47 @@
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* display: flex (блочный) вместо inline-flex: базовая линия inline-flex
+   бокса берётся у первого flex-элемента, а у <img> это его нижний край,
+   из-за чего строка с SVG-иконкой смещается вверх относительно строки
+   с FontAwesome-иконкой. */
+.social-links__link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+}
+
+.social-links--vertical {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.social-links__link:hover {
+  text-decoration: underline;
+}
+
+/* Иконки (fa и svg) нормализованы в одинаковый бокс 1em x 1em с
+   line-height: 1, поэтому flex-центрирование выравнивает их идентично
+   независимо от метрик шрифта темы. */
+.social-links__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1em;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* SVG-иконки масштабируются как FontAwesome: 1em по ширине и высоте. */
+.social-links__icon--svg {
+  width: 1em;
+  height: 1em;
+  object-fit: contain;
+}

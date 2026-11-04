@@ -1,0 +1,7 @@
+yu_social.settings:
+  path: '/admin/config/system/yu-social'
+  defaults:
+    _form: 'Drupal\yu_social\Form\YuSocialSettingsForm'
+    _title: 'Social links'
+  requirements:
+    _permission: 'administer yu_social settings'

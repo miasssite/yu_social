@@ -1,0 +1,63 @@
+# Default configuration for the Social links module.
+# Each item:
+#   enabled   - show the link in the block.
+#   label     - visible label.
+#   url       - URL, plain phone number or email address.
+#   icon_type - icon type: "fontawesome" or "svg".
+#   icon      - FontAwesome icon classes (for icon_type: fontawesome).
+#   svg       - file ID of the uploaded SVG (for icon_type: svg).
+#   nofollow  - add rel="nofollow" to the link.
+#   weight    - sort order (lower first).
+#
+# Display mode ("Отображать"), element orientation ("Расположение элементов")
+# and the extra CSS classes are configured per block instance, not here.
+#
+# The *_classes keys below are the site-wide default CSS classes. They are
+# used whenever the matching class field of a block instance is empty.
+links:
+  - enabled: true
+    label: 'Phone'
+    url: '+7 900 000-00-00'
+    icon_type: fontawesome
+    icon: 'fa-solid fa-phone'
+    svg: null
+    nofollow: true
+    weight: -10
+  - enabled: true
+    label: 'Email'
+    url: 'info@example.com'
+    icon_type: fontawesome
+    icon: 'fa-solid fa-envelope'
+    svg: null
+    nofollow: true
+    weight: -9
+  - enabled: true
+    label: 'Telegram'
+    url: 'https://t.me/username'
+    icon_type: fontawesome
+    icon: 'fa-brands fa-telegram'
+    svg: null
+    nofollow: true
+    weight: -8
+  - enabled: true
+    label: 'WhatsApp'
+    url: 'https://wa.me/79000000000'
+    icon_type: fontawesome
+    icon: 'fa-brands fa-whatsapp'
+    svg: null
+    nofollow: true
+    weight: -7
+  - enabled: true
+    label: 'VK'
+    url: 'https://vk.com/username'
+    icon_type: fontawesome
+    icon: 'fa-brands fa-vk'
+    svg: null
+    nofollow: true
+    weight: -6
+
+default_classes:
+  wrapper_classes: 'social-links__item--default'
+  link_classes: 'social-links__link--default'
+  icon_classes: 'social-links__icon--default'
+  label_classes: 'social-links__label--default'
