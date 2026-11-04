@@ -1,0 +1,10 @@
+{
+    "name": "miasssite/yu_social",
+    "description": "Social links block for Drupal 11",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=8.3",
+        "drupal/core": "^11"
+    }
+}
